@@ -228,6 +228,17 @@
 		</dependency>
 
 
+		<!-- 跨域请求 -->
+		<dependency> 
+
+           <groupId>com.thetransactioncompany</groupId> 
+
+           <artifactId>cors-filter</artifactId> 
+
+           <version>2.5</version> 
+
+       	</dependency>
+
 
 	</dependencies>
 	<build>
