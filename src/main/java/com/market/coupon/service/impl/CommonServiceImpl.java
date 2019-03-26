@@ -59,6 +59,7 @@ public class CommonServiceImpl implements CommonService{
 		order.setOrderPayState("payok");
 		order.setOrderTime(orderTime);
 		order.setOrderSerial(orderSerial);
+		order.setOrderId(Integer.parseInt(orderId));
 		orderDao.update(order);
 		
 	}
