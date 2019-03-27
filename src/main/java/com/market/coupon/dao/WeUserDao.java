@@ -10,6 +10,8 @@ public interface WeUserDao {
    
    WeUserinfo selectByOpenId(String openid);
    
+   WeUserinfo selectByOpenIdLianmengId(@Param("openId")String openId,@Param("lianmengId")int lianmengid);
+   
    void update(@Param("openId") String openId,@Param("lianmengId") int lianmengId);
    
 }

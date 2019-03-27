@@ -63,7 +63,7 @@ public class CommonAction {
 		order.setOrderBuyerName(schema.getOrder_buyer_name());
 		order.setOrderBuyerOpenid(schema.getOrder_buyer_openid());
 		order.setOrderBuyerPhone(schema.getOrder_buyer_phone());
-
+		order.setOrderLianmengId(schema.getOrder_buyer_lianmengid());
 		int orderId = commonService.makeOrder(order);
 
 		return orderId;

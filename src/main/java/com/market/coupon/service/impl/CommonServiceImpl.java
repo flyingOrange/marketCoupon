@@ -68,23 +68,21 @@ public class CommonServiceImpl implements CommonService{
     @Override
     @Transactional
     public int makeOrder(Order order) {
-        //查询shopid
+        //用openid和联盟id查询shopid
         String openid = order.getOrderBuyerOpenid();
-        WeUserinfo weUserinfo = weUserDao.selectByOpenId(openid);
-        //根据openId从we_userinfo查到lianmengid
-        //查price
-        int lianmengid = weUserinfo.getLianmengid();
+        int lianmengid = order.getOrderLianmengId();
+        WeUserinfo weUserinfo = weUserDao.selectByOpenIdLianmengId(openid,lianmengid);
+        //根据lianmengid查price
+        //int lianmengid = weUserinfo.getLianmengid();
         LianmengInfo lianmengInfo = lianmengInfoDao.selectById(lianmengid);
-        
-        order.setOrderLianmengId(lianmengid);
         
         order.setOrderShopid(weUserinfo.getShopid());
         order.setOrderPrice(lianmengInfo.getPrice());
         order.setOrderPayState("weizhifu");
         order.setOrderTime(new Date());
-        int id = orderDao.add(order);
+        orderDao.add(order);
+        int id = order.getOrderId();
         return id;
-        
     }
 
 	@Override
