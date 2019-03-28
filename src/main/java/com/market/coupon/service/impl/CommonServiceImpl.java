@@ -18,7 +18,7 @@ import com.market.coupon.model.JoinInfo;
 import com.market.coupon.model.LianmengInfo;
 import com.market.coupon.model.Order;
 import com.market.coupon.model.WeUserinfo;
-import com.market.coupon.responseSchema.RedPackageResponse;
+import com.market.coupon.repschema.RedPackageRep;
 import com.market.coupon.service.CommonService;
 
 @Service("CommonService")
@@ -91,8 +91,8 @@ public class CommonServiceImpl implements CommonService{
 	}
 
 	@Override
-	public RedPackageResponse redPackage(String openId, int lianmengId) {
-		RedPackageResponse response = new RedPackageResponse();
+	public RedPackageRep redPackage(String openId, int lianmengId) {
+		RedPackageRep response = new RedPackageRep();
 		//frontId
 		WeUserinfo weUserinfo = weUserDao.selectByOpenId(openId);
 		response.setFront_one_openid(weUserinfo.getFrontOneOpenid());

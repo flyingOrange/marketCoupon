@@ -10,13 +10,13 @@ import org.springframework.web.bind.annotation.RestController;
 import com.market.coupon.model.JoinInfo;
 import com.market.coupon.model.Order;
 import com.market.coupon.model.WeUserinfo;
+import com.market.coupon.repschema.RedPackageRep;
 import com.market.coupon.reqschema.AddJoinInfoSchema;
 import com.market.coupon.reqschema.AddUserSchema;
 import com.market.coupon.reqschema.OrderCallbackSchema;
 import com.market.coupon.reqschema.OrderSchema;
 import com.market.coupon.reqschema.RedPackageSchema;
 import com.market.coupon.reqschema.UpdateUserInfoSchema;
-import com.market.coupon.responseSchema.RedPackageResponse;
 import com.market.coupon.service.CommonService;
 
 @RestController
@@ -91,10 +91,10 @@ public class CommonAction {
 
 	// 接口编号11,根据openid和lianmengid获取红包信息
 	@RequestMapping("/redPackage")
-	RedPackageResponse redPackage(@RequestBody RedPackageSchema schema) {
+	RedPackageRep redPackage(@RequestBody RedPackageSchema schema) {
 		String openId = schema.getBuyer_openid();
 		int lianmengId = schema.getLianmeng_id();
-		RedPackageResponse response = commonService.redPackage(openId, lianmengId);
+		RedPackageRep response = commonService.redPackage(openId, lianmengId);
 
 		return response;
 	}
