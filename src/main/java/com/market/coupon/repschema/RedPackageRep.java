@@ -1,6 +1,6 @@
-package com.market.coupon.responseSchema;
+package com.market.coupon.repschema;
 
-public class RedPackageResponse {
+public class RedPackageRep {
 	
 	String front_one_openid;
 	String front_two_openid;

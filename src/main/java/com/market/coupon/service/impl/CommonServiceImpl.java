@@ -18,7 +18,7 @@ import com.market.coupon.model.JoinInfo;
 import com.market.coupon.model.LianmengInfo;
 import com.market.coupon.model.Order;
 import com.market.coupon.model.WeUserinfo;
-import com.market.coupon.responseSchema.RedPackageResponse;
+import com.market.coupon.repschema.RedPackageRep;
 import com.market.coupon.service.CommonService;
 
 @Service("CommonService")
@@ -68,23 +68,21 @@ public class CommonServiceImpl implements CommonService{
     @Override
     @Transactional
     public int makeOrder(Order order) {
-        //查询shopid
+        //用openid和联盟id查询shopid
         String openid = order.getOrderBuyerOpenid();
-        WeUserinfo weUserinfo = weUserDao.selectByOpenId(openid);
-        //根据openId从we_userinfo查到lianmengid
-        //查price
-        int lianmengid = weUserinfo.getLianmengid();
+        int lianmengid = order.getOrderLianmengId();
+        WeUserinfo weUserinfo = weUserDao.selectByOpenIdLianmengId(openid,lianmengid);
+        //根据lianmengid查price
+        //int lianmengid = weUserinfo.getLianmengid();
         LianmengInfo lianmengInfo = lianmengInfoDao.selectById(lianmengid);
-        
-        order.setOrderLianmengId(lianmengid);
         
         order.setOrderShopid(weUserinfo.getShopid());
         order.setOrderPrice(lianmengInfo.getPrice());
         order.setOrderPayState("weizhifu");
         order.setOrderTime(new Date());
-        int id = orderDao.add(order);
+        orderDao.add(order);
+        int id = order.getOrderId();
         return id;
-        
     }
 
 	@Override
@@ -93,8 +91,8 @@ public class CommonServiceImpl implements CommonService{
 	}
 
 	@Override
-	public RedPackageResponse redPackage(String openId, int lianmengId) {
-		RedPackageResponse response = new RedPackageResponse();
+	public RedPackageRep redPackage(String openId, int lianmengId) {
+		RedPackageRep response = new RedPackageRep();
 		//frontId
 		WeUserinfo weUserinfo = weUserDao.selectByOpenId(openId);
 		response.setFront_one_openid(weUserinfo.getFrontOneOpenid());

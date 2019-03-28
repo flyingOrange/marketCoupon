@@ -61,6 +61,12 @@
 		)
 	</insert>
 
+	<select id="selectByOpenIdLianmengId" resultMap="WeUserinfoMap">
+		select * from we_userinfo
+		where openid=#{openId}
+		and lianmengid=#{lianmengId}
+	</select>
+
 	<select id="selectByOpenId" resultMap="WeUserinfoMap"
 		parameterType="java.lang.String">
 		select * from we_userinfo
