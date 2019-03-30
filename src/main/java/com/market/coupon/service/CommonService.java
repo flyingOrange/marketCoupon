@@ -1,8 +1,11 @@
 package com.market.coupon.service;
 
+import java.util.List;
+
 import com.market.coupon.model.JoinInfo;
 import com.market.coupon.model.Order;
 import com.market.coupon.model.WeUserinfo;
+import com.market.coupon.repschema.GetOrderInfoByIdRep;
 import com.market.coupon.repschema.RedPackageRep;
 
 public interface CommonService {
@@ -18,5 +21,9 @@ public interface CommonService {
 	void updateUserInfo(String openId,int lianmengId);
 	
 	RedPackageRep redPackage(String openId,int lianmengId);
+	
+	GetOrderInfoByIdRep getOrderById(String orderId);
+	
+	List<GetOrderInfoByIdRep> getOrderByOidAndLid(String openId,int lianmengId);
 
 }

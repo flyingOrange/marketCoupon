@@ -1,5 +1,8 @@
 package com.market.coupon.action;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.apache.commons.lang3.StringUtils;
@@ -10,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.market.coupon.model.JoinInfo;
 import com.market.coupon.model.Order;
 import com.market.coupon.model.WeUserinfo;
+import com.market.coupon.repschema.GetOrderInfoByIdRep;
 import com.market.coupon.repschema.RedPackageRep;
 import com.market.coupon.reqschema.AddJoinInfoSchema;
 import com.market.coupon.reqschema.AddUserSchema;
@@ -98,5 +102,28 @@ public class CommonAction {
 
 		return response;
 	}
+	
+	//根据订单id查询订单接口
+	@RequestMapping("/getOrderById")
+	GetOrderInfoByIdRep getOrderInfoById(@RequestBody OrderCallbackSchema schema) {
+		
+		String orderId = schema.getOrder_id();
+		
+		GetOrderInfoByIdRep response = commonService.getOrderById(orderId);
+		return response;		
+	}
+	
+	//根据lianmengid和openid查询订单
+	@RequestMapping("/getOrderByOidLid")
+	List<GetOrderInfoByIdRep> getOrderByOidAndLid(@RequestBody RedPackageSchema schema) {
+		
+		String openId = schema.getBuyer_openid();
+		int lianmengId = schema.getLianmeng_id();
+		//List<GetOrderInfoByIdRep> response = new ArrayList<GetOrderInfoByIdRep>();
+		List<GetOrderInfoByIdRep> response = commonService.getOrderByOidAndLid(openId, lianmengId);
+		
+		return response;		
+	}
+	
 
 }
