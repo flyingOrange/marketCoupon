@@ -19,6 +19,7 @@ import com.market.coupon.model.LianmengInfo;
 import com.market.coupon.model.Order;
 import com.market.coupon.model.WeUserinfo;
 import com.market.coupon.repschema.RedPackageRep;
+import com.market.coupon.repschema.UpdateUserInfoRep;
 import com.market.coupon.service.CommonService;
 
 @Service("CommonService")
@@ -86,8 +87,11 @@ public class CommonServiceImpl implements CommonService{
     }
 
 	@Override
-	public void updateUserInfo(String openId,int lianmengId) {
+	public UpdateUserInfoRep updateUserInfo(String openId,int lianmengId) {
 		weUserDao.update(openId,lianmengId);
+		UpdateUserInfoRep rep = new UpdateUserInfoRep();
+		
+		return rep;
 	}
 
 	@Override

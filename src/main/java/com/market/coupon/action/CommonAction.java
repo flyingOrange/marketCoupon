@@ -11,6 +11,7 @@ import com.market.coupon.model.JoinInfo;
 import com.market.coupon.model.Order;
 import com.market.coupon.model.WeUserinfo;
 import com.market.coupon.repschema.RedPackageRep;
+import com.market.coupon.repschema.UpdateUserInfoRep;
 import com.market.coupon.reqschema.AddJoinInfoSchema;
 import com.market.coupon.reqschema.AddUserSchema;
 import com.market.coupon.reqschema.OrderCallbackSchema;
@@ -82,11 +83,11 @@ public class CommonAction {
 
 	// 接口编号12,更新we_userinfo表的front_two字段
 	@RequestMapping("/updateUserInfo")
-	Boolean updateUserInfo(@RequestBody UpdateUserInfoSchema schema) {
+	UpdateUserInfoRep updateUserInfo(@RequestBody UpdateUserInfoSchema schema) {
 		String openId = schema.getOrder_buyer_openid();
 		int lianmengId = schema.getOrder_buyer_lianmengid();
-		commonService.updateUserInfo(openId, lianmengId);
-		return true;
+		UpdateUserInfoRep rep = commonService.updateUserInfo(openId, lianmengId);
+		return rep;
 	}
 
 	// 接口编号11,根据openid和lianmengid获取红包信息
