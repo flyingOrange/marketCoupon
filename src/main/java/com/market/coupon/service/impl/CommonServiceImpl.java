@@ -1,9 +1,12 @@
 package com.market.coupon.service.impl;
 
 import java.util.Date;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.annotation.Resource;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.RandomUtils;
 import org.apache.commons.lang3.time.FastDateFormat;
@@ -19,6 +22,8 @@ import com.market.coupon.model.JoinInfo;
 import com.market.coupon.model.LianmengInfo;
 import com.market.coupon.model.Order;
 import com.market.coupon.model.WeUserinfo;
+import com.market.coupon.repschema.OrderListInfo;
+import com.market.coupon.repschema.OrderListRep;
 import com.market.coupon.repschema.RedPackageRep;
 import com.market.coupon.repschema.UpdateUserInfoRep;
 import com.market.coupon.service.CommonService;
@@ -147,6 +152,23 @@ public class CommonServiceImpl implements CommonService{
 	    response.setRandom_num_two(random_num_two);
 		
 		return response;
+	}
+
+	@Override
+	public OrderListRep orderList(int lianmengId) {
+		OrderListRep rep = new OrderListRep();
+		List<Order> orders = orderDao.getByLianmengId(lianmengId);
+		if(CollectionUtils.isEmpty(orders)) {
+			rep.setCode(0);
+			return rep;
+		}
+		List<OrderListInfo> list = orders.stream().map(elem->{
+			OrderListInfo info = new OrderListInfo();
+			
+			return info;
+		}).collect(Collectors.toList());
+		
+		return rep;
 	}
 
 

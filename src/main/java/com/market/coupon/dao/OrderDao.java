@@ -1,5 +1,7 @@
 package com.market.coupon.dao;
 
+import java.util.List;
+
 import com.market.coupon.model.Order;
 
 public interface OrderDao {
@@ -7,5 +9,5 @@ public interface OrderDao {
     
     void update(Order order);
     
-    Order get(String openId);
+    List<Order> getByLianmengId(int lianmengId);
 }
