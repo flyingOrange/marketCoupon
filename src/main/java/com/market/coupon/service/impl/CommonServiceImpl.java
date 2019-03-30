@@ -121,7 +121,7 @@ public class CommonServiceImpl implements CommonService{
 			return rep;
 		}
 		//1   可以找到front_two,并更新成功，返回值补全
-		weUserDao.update(openId,lianmengId,"end");
+		weUserDao.update(openId,lianmengId,userinfo.getFrontOneOpenid());
 		rep.setCode(1);
 		rep.setFront_two_id(userinfo.getFrontOneOpenid());
 		return rep;
