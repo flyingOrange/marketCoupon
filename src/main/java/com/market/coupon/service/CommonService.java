@@ -7,6 +7,7 @@ import com.market.coupon.model.Order;
 import com.market.coupon.model.WeUserinfo;
 import com.market.coupon.repschema.GetOrderInfoByIdRep;
 import com.market.coupon.repschema.RedPackageRep;
+import com.market.coupon.repschema.UpdateUserInfoRep;
 
 public interface CommonService {
 	
@@ -18,7 +19,7 @@ public interface CommonService {
 	
 	void orderCallback(String orderId);
 	
-	void updateUserInfo(String openId,int lianmengId);
+	UpdateUserInfoRep updateUserInfo(String openId,int lianmengId);
 	
 	RedPackageRep redPackage(String openId,int lianmengId);
 	
