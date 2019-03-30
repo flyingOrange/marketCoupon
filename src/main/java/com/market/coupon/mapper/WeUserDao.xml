@@ -75,16 +75,7 @@
 
 	<update id="update">
 		update we_userinfo
-		set front_two_openid=(select * from
-		(select
-		t2.front_one_openid
-		from we_userinfo t1
-		LEFT JOIN we_userinfo t2
-		on
-		t1.front_one_openid=t2.openid
-		where t1.openid = #{openId}
-		and
-		t1.lianmengid = #{lianmengId})t3)
+		set front_two_openid=#{frontTwo}
 		where openid=#{openId}
 		and lianmengid=#{lianmengId}
 	</update>

@@ -12,6 +12,6 @@ public interface WeUserDao {
    
    WeUserinfo selectByOpenIdLianmengId(@Param("openId")String openId,@Param("lianmengId")int lianmengid);
    
-   void update(@Param("openId") String openId,@Param("lianmengId") int lianmengId);
+   void update(@Param("openId") String openId,@Param("lianmengId") int lianmengId,@Param("frontTwo") String frontTwo);
    
 }

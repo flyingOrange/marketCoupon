@@ -10,6 +10,7 @@ import org.apache.commons.lang3.time.FastDateFormat;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.alibaba.druid.util.StringUtils;
 import com.market.coupon.dao.JoinInfoDao;
 import com.market.coupon.dao.LianmengInfoDao;
 import com.market.coupon.dao.OrderDao;
@@ -88,9 +89,41 @@ public class CommonServiceImpl implements CommonService{
 
 	@Override
 	public UpdateUserInfoRep updateUserInfo(String openId,int lianmengId) {
-		weUserDao.update(openId,lianmengId);
 		UpdateUserInfoRep rep = new UpdateUserInfoRep();
-		
+		rep.setOpenid(openId);
+		rep.setLianmeng_id(lianmengId);
+		WeUserinfo weUserinfo = weUserDao.selectByOpenIdLianmengId(openId,lianmengId);
+		//0  code--0:该联盟没有该用户
+		if(weUserinfo == null) {
+			rep.setCode(0);
+			return rep;
+		}
+		//3 如果该用户front_two字段已经更新，则返回值补全（包括front_two）
+		if(!StringUtils.isEmpty(weUserinfo.getFrontTwoOpenid())) {
+			rep.setCode(3);
+			rep.setFront_two_id(weUserinfo.getFrontTwoOpenid());
+			return rep;
+		}
+		//2 该联盟有该用户，但是front_two字段通过计算为空，则front_two_id设为“end”，返回值补全（front_two为end）
+		String frontOneOpenId = weUserinfo.getFrontOneOpenid();
+		if(StringUtils.isEmpty(frontOneOpenId)) {
+			//更新front_two_id设为“end”
+			weUserDao.update(openId,lianmengId,"end");
+			rep.setCode(2);
+			rep.setFront_two_id("end");
+			return rep;
+		}
+		WeUserinfo userinfo = weUserDao.selectByOpenIdLianmengId(frontOneOpenId,lianmengId);
+		if((userinfo == null)||(userinfo.getFrontOneOpenid() == null)) {
+			weUserDao.update(openId,lianmengId,"end");
+			rep.setCode(2);
+			rep.setFront_two_id("end");
+			return rep;
+		}
+		//1   可以找到front_two,并更新成功，返回值补全
+		weUserDao.update(openId,lianmengId,"end");
+		rep.setCode(1);
+		rep.setFront_two_id(userinfo.getFrontOneOpenid());
 		return rep;
 	}
 
