@@ -15,11 +15,13 @@ import com.market.coupon.model.Order;
 import com.market.coupon.model.RedRecordInfo;
 import com.market.coupon.model.WeUserinfo;
 import com.market.coupon.repschema.GetOrderInfoByIdRep;
+import com.market.coupon.repschema.OrderListRep;
 import com.market.coupon.repschema.RedPackageRep;
 import com.market.coupon.repschema.UpdateUserInfoRep;
 import com.market.coupon.reqschema.AddJoinInfoSchema;
 import com.market.coupon.reqschema.AddUserSchema;
 import com.market.coupon.reqschema.OrderCallbackSchema;
+import com.market.coupon.reqschema.OrderListSchema;
 import com.market.coupon.reqschema.OrderSchema;
 import com.market.coupon.reqschema.RedPackageSchema;
 import com.market.coupon.reqschema.UpdateUserInfoSchema;
@@ -31,6 +33,14 @@ public class CommonAction {
 
 	@Resource(name = "CommonService")
 	private CommonService commonService;
+	
+	// 接口编号5--获取订单列表，用来展示到活动首页
+	@RequestMapping("/orderList")
+	OrderListRep orderList(@RequestBody OrderListSchema schema) {
+		int lianmengId = schema.getLianmengid();
+		OrderListRep rep = commonService.orderList(lianmengId);
+		return rep;
+	}
 
 	// add we_userinfo
 	@RequestMapping("/addUser")
@@ -151,6 +161,14 @@ public class CommonAction {
 		
 		commonService.addRedPackRecordInfo(redRecord);
 		return true;
+	}
+	
+	//根据订单号查询是否已经发过红包
+	@RequestMapping("/ifSentHBByOrderId")
+	boolean ifSentRedPackByOrderId(@RequestBody OrderCallbackSchema schema) {
+		
+		int orderId = Integer.parseInt(schema.getOrder_id());
+		return false;
 	}
 	
 

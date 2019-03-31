@@ -7,6 +7,7 @@ import com.market.coupon.model.Order;
 import com.market.coupon.model.RedRecordInfo;
 import com.market.coupon.model.WeUserinfo;
 import com.market.coupon.repschema.GetOrderInfoByIdRep;
+import com.market.coupon.repschema.OrderListRep;
 import com.market.coupon.repschema.RedPackageRep;
 import com.market.coupon.repschema.UpdateUserInfoRep;
 
@@ -30,4 +31,6 @@ public interface CommonService {
 	
 	void addRedPackRecordInfo(RedRecordInfo redRecord);
 
+	OrderListRep orderList(int lianmengId);
+	
 }

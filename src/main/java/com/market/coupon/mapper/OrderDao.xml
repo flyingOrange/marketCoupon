@@ -24,6 +24,20 @@
 		<result property="orderPayState" column="order_pay_state"  />
 	</resultMap>
 
+	<resultMap type="com.market.coupon.model.Order" id="orderMap">
+		<result column="order_id" property="orderId"/>
+		<result column="order_time" property="orderTime"/>
+		<result column="order_buyer_name" property="orderBuyerName"/>
+		<result column="order_buyer_phone" property="orderBuyerPhone"/>
+		<result column="order_lianmeng_id" property="orderLianmengId"/>
+		<result column="order_buyer_openid" property="orderBuyerOpenid"/>
+		<result column="order_shopid" property="orderShopid"/>
+		<result column="order_price" property="orderPrice"/>
+		<result column="order_serial" property="orderSerial"/>
+		<result column="order_pay_state" property="orderPayState"/>
+		
+	</resultMap>
+
 	<insert id="add" parameterType="com.market.coupon.model.Order" keyProperty="orderId" useGeneratedKeys="true">
 		insert into
 		`order`(order_time,order_buyer_name,order_buyer_phone,order_lianmeng_id,order_buyer_openid,order_shopid,order_price,order_pay_state)
@@ -36,6 +50,12 @@
 		set order_serial=#{orderSerial},order_pay_state=#{orderPayState},order_time=#{orderTime}
 		where order_id=#{orderId}
 	</update>
+	
+	<select id="getByLianmengId" resultMap="orderMap">
+		select * 
+		from `order`
+		where order_lianmeng_id=#{lianmengId}
+	</select>
 
 	<select id="selectOrderById" parameterType="int" resultMap="OrderMapByOrderId">
 		select

@@ -17,4 +17,6 @@ public interface OrderDao {
     Order selectOrderById(int orderId);
     
     List<OrderRepInfo> selectOrderByOidLid(@Param("openId")String openId,@Param("lianmengId")int lianmengId);
+    
+    List<Order> getByLianmengId(int lianmengId);
 }
