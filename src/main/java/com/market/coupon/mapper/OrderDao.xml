@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.market.coupon.dao.OrderDao">
 
-	<resultMap   type="com.market.coupon.model.Order" id="OrderMap">
+	<resultMap   type="com.market.coupon.model.Order" id="OrderMapByOrderId">
 		<result property="orderId" column="order_id"  />
 		<result property="orderTime" column="order_time"  />
 		<result property="orderBuyerName" column="order_buyer_name"  />
@@ -37,7 +37,7 @@
 		where order_id=#{orderId}
 	</update>
 
-	<select id="selectOrderById" parameterType="int" resultMap="OrderMap">
+	<select id="selectOrderById" parameterType="int" resultMap="OrderMapByOrderId">
 		select
         * from `order` where order_id=#{orderId}
 	</select>

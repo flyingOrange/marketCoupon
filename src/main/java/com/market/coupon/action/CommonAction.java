@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.market.coupon.model.JoinInfo;
 import com.market.coupon.model.Order;
+import com.market.coupon.model.RedRecordInfo;
 import com.market.coupon.model.WeUserinfo;
 import com.market.coupon.repschema.GetOrderInfoByIdRep;
 import com.market.coupon.repschema.RedPackageRep;
@@ -23,6 +24,7 @@ import com.market.coupon.reqschema.OrderSchema;
 import com.market.coupon.reqschema.RedPackageSchema;
 import com.market.coupon.reqschema.UpdateUserInfoSchema;
 import com.market.coupon.service.CommonService;
+import com.market.coupon.reqschema.InsertRedPackInfoSchema;;
 
 @RestController
 public class CommonAction {
@@ -124,6 +126,31 @@ public class CommonAction {
 		List<GetOrderInfoByIdRep> response = commonService.getOrderByOidAndLid(openId, lianmengId);
 		
 		return response;		
+	}
+	
+	//存储发红包信息到数据库
+	@RequestMapping("/saveRedPackInfo")
+	boolean insertRedPackInfo(@RequestBody InsertRedPackInfoSchema schema) {
+		
+		if (StringUtils.isAnyBlank(schema.getOpenid(), schema.getLianmeng_id(), schema.getRed_num(), schema.getRed_type())) {
+			return false;
+		}
+
+		String openid = schema.getOpenid();
+		String lianmeng_id = schema.getLianmeng_id();
+		String red_num = schema.getRed_num();
+		String red_type = schema.getRed_type();
+		String order_id = schema.getOrder_id();
+		
+		RedRecordInfo redRecord = new RedRecordInfo();
+		redRecord.setOpenId(openid);
+		redRecord.setRedLianmengId(Integer.parseInt(lianmeng_id));
+		redRecord.setRedNum(Integer.parseInt(red_num));
+		redRecord.setRedType(Integer.parseInt(red_type));
+		redRecord.setFromOrderId(Integer.parseInt(order_id));
+		
+		commonService.addRedPackRecordInfo(redRecord);
+		return true;
 	}
 	
 

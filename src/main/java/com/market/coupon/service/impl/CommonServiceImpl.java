@@ -17,11 +17,13 @@ import com.alibaba.druid.util.StringUtils;
 import com.market.coupon.dao.JoinInfoDao;
 import com.market.coupon.dao.LianmengInfoDao;
 import com.market.coupon.dao.OrderDao;
+import com.market.coupon.dao.RedRecordDao;
 import com.market.coupon.dao.WeUserDao;
 import com.market.coupon.model.JoinInfo;
 import com.market.coupon.model.LianmengInfo;
 import com.market.coupon.model.Order;
 import com.market.coupon.model.OrderRepInfo;
+import com.market.coupon.model.RedRecordInfo;
 import com.market.coupon.model.WeUserinfo;
 import com.market.coupon.repschema.GetOrderInfoByIdRep;
 import com.market.coupon.repschema.RedPackageRep;
@@ -39,6 +41,8 @@ public class CommonServiceImpl implements CommonService{
     private OrderDao orderDao;
     @Resource
     private LianmengInfoDao lianmengInfoDao;
+    @Resource
+    private RedRecordDao redRecordDao;
     
     
 	@Override
@@ -215,6 +219,12 @@ public class CommonServiceImpl implements CommonService{
 		}
 		
 		return response;
+	}
+
+	@Override
+	public void addRedPackRecordInfo(RedRecordInfo redRecord) {
+		// TODO Auto-generated method stub
+		redRecordDao.insertRedRecord(redRecord);
 	}
 
 

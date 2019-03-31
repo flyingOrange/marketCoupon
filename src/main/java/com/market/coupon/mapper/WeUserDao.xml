@@ -79,6 +79,8 @@
 		where openid=#{openId}
 		and lianmengid=#{lianmengId}
 	</update>
+	
+
 
 
 </mapper>
