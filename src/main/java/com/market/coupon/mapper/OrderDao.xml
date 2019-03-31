@@ -2,6 +2,28 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.market.coupon.dao.OrderDao">
 
+	<resultMap   type="com.market.coupon.model.Order" id="OrderMapByOrderId">
+		<result property="orderId" column="order_id"  />
+		<result property="orderTime" column="order_time"  />
+		<result property="orderBuyerName" column="order_buyer_name"  />
+		<result property="orderBuyerPhone" column="order_buyer_phone"  />
+		<result property="orderLianmengId" column="order_lianmeng_id" />
+		<result property="orderBuyerOpenid" column="order_buyer_openid"  />
+		<result property="orderShopid" column="order_shopid"  />
+		<result property="orderPrice" column="order_price"  />
+		<result property="orderSerial" column="order_serial"  />
+		<result property="orderPayState" column="order_pay_state"  />
+	</resultMap>
+	
+	<resultMap   type="com.market.coupon.model.OrderRepInfo" id="OrderListRepMap">
+		<result property="orderBuyTime" column="order_time"  />
+		<result property="orderBuyerName" column="order_buyer_name"  />
+		<result property="orderBuyerPhone" column="order_buyer_phone"  />
+		<result property="orderPrice" column="order_price"  />
+		<result property="orderSerial" column="order_serial"  />
+		<result property="orderPayState" column="order_pay_state"  />
+	</resultMap>
+
 	<resultMap type="com.market.coupon.model.Order" id="orderMap">
 		<result column="order_id" property="orderId"/>
 		<result column="order_time" property="orderTime"/>
@@ -34,5 +56,17 @@
 		from `order`
 		where order_lianmeng_id=#{lianmengId}
 	</select>
+
+	<select id="selectOrderById" parameterType="int" resultMap="OrderMapByOrderId">
+		select
+        * from `order` where order_id=#{orderId}
+	</select>
+	
+	<select id="selectOrderByOidLid" resultMap="OrderListRepMap">
+		select 
+		order_time, order_buyer_name, order_buyer_phone, order_price, order_serial, order_pay_state
+        from `order` where order_buyer_openid=#{openId} and order_lianmeng_id=#{lianmengId}
+	</select>
+	
 
 </mapper>

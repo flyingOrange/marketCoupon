@@ -1,5 +1,8 @@
 package com.market.coupon.action;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.apache.commons.lang3.StringUtils;
@@ -9,7 +12,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.market.coupon.model.JoinInfo;
 import com.market.coupon.model.Order;
+import com.market.coupon.model.RedRecordInfo;
 import com.market.coupon.model.WeUserinfo;
+import com.market.coupon.repschema.GetOrderInfoByIdRep;
 import com.market.coupon.repschema.OrderListRep;
 import com.market.coupon.repschema.RedPackageRep;
 import com.market.coupon.repschema.UpdateUserInfoRep;
@@ -21,6 +26,7 @@ import com.market.coupon.reqschema.OrderSchema;
 import com.market.coupon.reqschema.RedPackageSchema;
 import com.market.coupon.reqschema.UpdateUserInfoSchema;
 import com.market.coupon.service.CommonService;
+import com.market.coupon.reqschema.InsertRedPackInfoSchema;;
 
 @RestController
 public class CommonAction {
@@ -109,5 +115,61 @@ public class CommonAction {
 
 		return response;
 	}
+	
+	//根据订单id查询订单接口
+	@RequestMapping("/getOrderById")
+	GetOrderInfoByIdRep getOrderInfoById(@RequestBody OrderCallbackSchema schema) {
+		
+		String orderId = schema.getOrder_id();
+		
+		GetOrderInfoByIdRep response = commonService.getOrderById(orderId);
+		return response;		
+	}
+	
+	//根据lianmengid和openid查询订单
+	@RequestMapping("/getOrderByOidLid")
+	List<GetOrderInfoByIdRep> getOrderByOidAndLid(@RequestBody RedPackageSchema schema) {
+		
+		String openId = schema.getBuyer_openid();
+		int lianmengId = schema.getLianmeng_id();
+		//List<GetOrderInfoByIdRep> response = new ArrayList<GetOrderInfoByIdRep>();
+		List<GetOrderInfoByIdRep> response = commonService.getOrderByOidAndLid(openId, lianmengId);
+		
+		return response;		
+	}
+	
+	//存储发红包信息到数据库
+	@RequestMapping("/saveRedPackInfo")
+	boolean insertRedPackInfo(@RequestBody InsertRedPackInfoSchema schema) {
+		
+		if (StringUtils.isAnyBlank(schema.getOpenid(), schema.getLianmeng_id(), schema.getRed_num(), schema.getRed_type())) {
+			return false;
+		}
+
+		String openid = schema.getOpenid();
+		String lianmeng_id = schema.getLianmeng_id();
+		String red_num = schema.getRed_num();
+		String red_type = schema.getRed_type();
+		String order_id = schema.getOrder_id();
+		
+		RedRecordInfo redRecord = new RedRecordInfo();
+		redRecord.setOpenId(openid);
+		redRecord.setRedLianmengId(Integer.parseInt(lianmeng_id));
+		redRecord.setRedNum(Integer.parseInt(red_num));
+		redRecord.setRedType(Integer.parseInt(red_type));
+		redRecord.setFromOrderId(Integer.parseInt(order_id));
+		
+		commonService.addRedPackRecordInfo(redRecord);
+		return true;
+	}
+	
+	//根据订单号查询是否已经发过红包
+	@RequestMapping("/ifSentHBByOrderId")
+	boolean ifSentRedPackByOrderId(@RequestBody OrderCallbackSchema schema) {
+		
+		int orderId = Integer.parseInt(schema.getOrder_id());
+		return false;
+	}
+	
 
 }

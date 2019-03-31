@@ -1,10 +1,12 @@
 package com.market.coupon.service.impl;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import javax.annotation.Resource;
+import javax.swing.JPopupMenu.Separator;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.RandomStringUtils;
@@ -17,11 +19,15 @@ import com.alibaba.druid.util.StringUtils;
 import com.market.coupon.dao.JoinInfoDao;
 import com.market.coupon.dao.LianmengInfoDao;
 import com.market.coupon.dao.OrderDao;
+import com.market.coupon.dao.RedRecordDao;
 import com.market.coupon.dao.WeUserDao;
 import com.market.coupon.model.JoinInfo;
 import com.market.coupon.model.LianmengInfo;
 import com.market.coupon.model.Order;
+import com.market.coupon.model.OrderRepInfo;
+import com.market.coupon.model.RedRecordInfo;
 import com.market.coupon.model.WeUserinfo;
+import com.market.coupon.repschema.GetOrderInfoByIdRep;
 import com.market.coupon.repschema.OrderListInfo;
 import com.market.coupon.repschema.OrderListRep;
 import com.market.coupon.repschema.RedPackageRep;
@@ -39,6 +45,8 @@ public class CommonServiceImpl implements CommonService{
     private OrderDao orderDao;
     @Resource
     private LianmengInfoDao lianmengInfoDao;
+    @Resource
+    private RedRecordDao redRecordDao;
     
     
 	@Override
@@ -154,6 +162,75 @@ public class CommonServiceImpl implements CommonService{
 		return response;
 	}
 
+	@Override
+	public GetOrderInfoByIdRep getOrderById(String orderId) {
+		// TODO Auto-generated method stub
+		
+		GetOrderInfoByIdRep response = new GetOrderInfoByIdRep();
+		Order order = new Order();
+		order = orderDao.selectOrderById(Integer.parseInt(orderId));
+		
+		response.setOrder_serial(order.getOrderSerial());
+		response.setOrder_buyer_name(order.getOrderBuyerName());
+		
+		String phone = order.getOrderBuyerPhone().trim();
+		
+		String repStr = "***";
+		StringBuilder nPhone = new StringBuilder(phone);
+		String rePhone = nPhone.replace(3, 8, repStr).toString();
+		response.setOrder_buyer_phone(rePhone);
+		
+		FastDateFormat fdf = FastDateFormat.getInstance("yyyy-MM-dd");
+		String buy_time = fdf.format(order.getOrderTime());
+		
+		response.setOrder_buy_time(buy_time);
+		response.setOrder_pay_state(order.getOrderPayState());
+		return response;
+	}
+
+	@Override
+	public List<GetOrderInfoByIdRep> getOrderByOidAndLid(String openId, int lianmengId) {
+		// TODO Auto-generated method stub
+		List<GetOrderInfoByIdRep> response = new ArrayList<GetOrderInfoByIdRep>();
+		
+		List<OrderRepInfo> orderList = new ArrayList<OrderRepInfo>();
+		System.out.println("openid: "+ openId +"  lianmengid: " + lianmengId);
+		orderList = orderDao.selectOrderByOidLid(openId, lianmengId);
+		System.out.println(orderList);
+		
+		for(OrderRepInfo order : orderList) {
+			
+			GetOrderInfoByIdRep repOrder = new GetOrderInfoByIdRep();
+			
+			FastDateFormat fdf = FastDateFormat.getInstance("yyyy-MM-dd");
+			String buy_time = fdf.format(order.getOrderBuyTime());
+			repOrder.setOrder_buy_time(buy_time);
+			
+			repOrder.setOrder_buyer_name(order.getOrderBuyerName());
+			
+			String phone = order.getOrderBuyerPhone().trim();
+			
+			String repStr = "***";
+			StringBuilder nPhone = new StringBuilder(phone);
+			String rePhone = nPhone.replace(3, 8, repStr).toString();
+			repOrder.setOrder_buyer_phone(rePhone);
+			
+			repOrder.setOrder_pay_state(order.getOrderPayState());
+			repOrder.setOrder_price(order.getOrderPrice());
+			repOrder.setOrder_serial(order.getOrderSerial());
+			
+			response.add(repOrder);
+		}
+		
+		return response;
+	}
+
+	@Override
+	public void addRedPackRecordInfo(RedRecordInfo redRecord) {
+		// TODO Auto-generated method stub
+		redRecordDao.insertRedRecord(redRecord);
+	}
+	
 	@Override
 	public OrderListRep orderList(int lianmengId) {
 		OrderListRep rep = new OrderListRep();
