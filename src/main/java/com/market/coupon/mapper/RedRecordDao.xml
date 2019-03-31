@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.market.coupon.dao.RedRecordDao">
+
+
+
+	<insert id="insertRedRecord"
+		parameterType="com.market.coupon.model.RedRecordInfo">
+		insert into
+		red_record(red_openid,red_num,red_type,red_lianmeng_id,from_order_id)values(#{openId},#{redNum},#{redType},#{redLianmengId},#{fromOrderId})
+
+	</insert>
+
+</mapper>
