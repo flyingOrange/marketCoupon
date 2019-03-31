@@ -164,10 +164,17 @@ public class CommonServiceImpl implements CommonService{
 		}
 		List<OrderListInfo> list = orders.stream().map(elem->{
 			OrderListInfo info = new OrderListInfo();
+			String openId = elem.getOrderBuyerOpenid();
+			int lianmengid = elem.getOrderLianmengId();
+			WeUserinfo weUserinfo = weUserDao.selectByOpenIdLianmengId(openId, lianmengid);
+			info.setBuyer_headpic(weUserinfo.getuHeadPic());
+			info.setBuyer_name(elem.getOrderBuyerName());
+			info.setBuyer_nickname(weUserinfo.getNickname());
+			info.setBuyer_phone(elem.getOrderBuyerPhone());
 			
 			return info;
 		}).collect(Collectors.toList());
-		
+		rep.setList(list);
 		return rep;
 	}
 
