@@ -33,4 +33,6 @@ public interface CommonService {
 
 	OrderListRep orderList(int lianmengId);
 	
+	boolean ifSentRedPackByOrderId(int orderId);
+	
 }

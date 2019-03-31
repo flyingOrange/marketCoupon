@@ -248,6 +248,12 @@ public class CommonServiceImpl implements CommonService{
 		return rep;
 	}
 
+	@Override
+	public boolean ifSentRedPackByOrderId(int orderId) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 
 
 	

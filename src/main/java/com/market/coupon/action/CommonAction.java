@@ -168,7 +168,14 @@ public class CommonAction {
 	boolean ifSentRedPackByOrderId(@RequestBody OrderCallbackSchema schema) {
 		
 		int orderId = Integer.parseInt(schema.getOrder_id());
-		return false;
+		
+		if(commonService.ifSentRedPackByOrderId(orderId)) {
+			
+			return true;
+		}else {
+			
+			return false;
+		}
 	}
 	
 
