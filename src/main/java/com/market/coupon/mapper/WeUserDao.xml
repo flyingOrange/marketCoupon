@@ -60,7 +60,7 @@
 		<include refid="values" />
 		)
 	</insert>
-
+	
 	<select id="selectByOpenIdLianmengId" resultMap="WeUserinfoMap">
 		select * from we_userinfo
 		where openid=#{openId}
@@ -79,6 +79,12 @@
 		where openid=#{openId}
 		and lianmengid=#{lianmengId}
 	</update>
+	
+	<select id="statistcs" resultType="java.lang.Integer">
+		select count(*)
+		from we_userinfo
+		where lianmengid=#{lianmengId}
+	</select>
 	
 
 

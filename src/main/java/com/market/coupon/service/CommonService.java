@@ -9,6 +9,7 @@ import com.market.coupon.model.WeUserinfo;
 import com.market.coupon.repschema.GetOrderInfoByIdRep;
 import com.market.coupon.repschema.OrderListRep;
 import com.market.coupon.repschema.RedPackageRep;
+import com.market.coupon.repschema.StatistcsRep;
 import com.market.coupon.repschema.UpdateUserInfoRep;
 
 public interface CommonService {
@@ -34,5 +35,7 @@ public interface CommonService {
 	OrderListRep orderList(int lianmengId);
 	
 	boolean ifSentRedPackByOrderId(int orderId);
+	
+	StatistcsRep statistcs(int lianmengId);
 	
 }

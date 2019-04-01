@@ -1,6 +1,5 @@
 package com.market.coupon.action;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -20,19 +19,28 @@ import com.market.coupon.repschema.RedPackageRep;
 import com.market.coupon.repschema.UpdateUserInfoRep;
 import com.market.coupon.reqschema.AddJoinInfoSchema;
 import com.market.coupon.reqschema.AddUserSchema;
+import com.market.coupon.reqschema.InsertRedPackInfoSchema;
 import com.market.coupon.reqschema.OrderCallbackSchema;
 import com.market.coupon.reqschema.OrderListSchema;
 import com.market.coupon.reqschema.OrderSchema;
 import com.market.coupon.reqschema.RedPackageSchema;
+import com.market.coupon.reqschema.StatistcsSchema;
 import com.market.coupon.reqschema.UpdateUserInfoSchema;
-import com.market.coupon.service.CommonService;
-import com.market.coupon.reqschema.InsertRedPackInfoSchema;;
+import com.market.coupon.service.CommonService;;
 
 @RestController
 public class CommonAction {
 
 	@Resource(name = "CommonService")
 	private CommonService commonService;
+	
+	// 接口编号3-获取商户推广量，用来统计信息
+	@RequestMapping("/statistcs")
+	void statistcs(@RequestBody StatistcsSchema schema) {
+		int lianmengId = schema.getLianmengid();
+		
+		
+	}
 	
 	// 接口编号5--获取订单列表，用来展示到活动首页
 	@RequestMapping("/orderList")

@@ -31,6 +31,7 @@ import com.market.coupon.repschema.GetOrderInfoByIdRep;
 import com.market.coupon.repschema.OrderListInfo;
 import com.market.coupon.repschema.OrderListRep;
 import com.market.coupon.repschema.RedPackageRep;
+import com.market.coupon.repschema.StatistcsRep;
 import com.market.coupon.repschema.UpdateUserInfoRep;
 import com.market.coupon.service.CommonService;
 
@@ -259,6 +260,15 @@ public class CommonServiceImpl implements CommonService{
 	public boolean ifSentRedPackByOrderId(int orderId) {
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+	@Override
+	public StatistcsRep statistcs(int lianmengId) {
+		StatistcsRep rep = new StatistcsRep();
+		int orderCount = orderDao.statistcs(lianmengId);
+		int pushCount = weUserDao.statistcs(lianmengId);
+		
+		return null;
 	}
 
 

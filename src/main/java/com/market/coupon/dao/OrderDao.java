@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Param;
 
 import com.market.coupon.model.Order;
 import com.market.coupon.model.OrderRepInfo;
+import com.market.coupon.repschema.StatistcsRep;
 
 public interface OrderDao {
     int add(Order order);
@@ -19,4 +20,8 @@ public interface OrderDao {
     List<OrderRepInfo> selectOrderByOidLid(@Param("openId")String openId,@Param("lianmengId")int lianmengId);
     
     List<Order> getByLianmengId(int lianmengId);
+    
+    int statistcs(int lianmengId);
+    
+    
 }

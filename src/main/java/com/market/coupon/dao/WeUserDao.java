@@ -15,5 +15,6 @@ public interface WeUserDao {
    
    void update(@Param("openId") String openId,@Param("lianmengId") int lianmengId,@Param("frontTwo") String frontTwo);
    
+   int statistcs(int lianmengId);
    
 }

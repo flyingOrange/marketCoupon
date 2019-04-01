@@ -68,5 +68,12 @@
         from `order` where order_buyer_openid=#{openId} and order_lianmeng_id=#{lianmengId}
 	</select>
 	
+	<select id="statistcs" resultType="java.lang.Integer">
+		select count(*)
+		from `order`
+		where order_lianmeng_id=#{lianmengId}
+	
+	</select>
+	
 
 </mapper>
