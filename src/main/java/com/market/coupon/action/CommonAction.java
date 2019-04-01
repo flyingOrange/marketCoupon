@@ -16,6 +16,7 @@ import com.market.coupon.model.WeUserinfo;
 import com.market.coupon.repschema.GetOrderInfoByIdRep;
 import com.market.coupon.repschema.OrderListRep;
 import com.market.coupon.repschema.RedPackageRep;
+import com.market.coupon.repschema.StatistcsRep;
 import com.market.coupon.repschema.UpdateUserInfoRep;
 import com.market.coupon.reqschema.AddJoinInfoSchema;
 import com.market.coupon.reqschema.AddUserSchema;
@@ -36,10 +37,10 @@ public class CommonAction {
 	
 	// 接口编号3-获取商户推广量，用来统计信息
 	@RequestMapping("/statistcs")
-	void statistcs(@RequestBody StatistcsSchema schema) {
+	StatistcsRep statistcs(@RequestBody StatistcsSchema schema) {
 		int lianmengId = schema.getLianmengid();
-		
-		
+		StatistcsRep rep = commonService.statistcs(lianmengId);
+		return rep;
 	}
 	
 	// 接口编号5--获取订单列表，用来展示到活动首页

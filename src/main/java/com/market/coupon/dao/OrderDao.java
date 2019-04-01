@@ -21,7 +21,7 @@ public interface OrderDao {
     
     List<Order> getByLianmengId(int lianmengId);
     
-    int statistcs(int lianmengId);
+    int statistcs(int lianmengId,int shopId);
     
     
 }
