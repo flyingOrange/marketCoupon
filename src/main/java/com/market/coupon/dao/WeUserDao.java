@@ -1,5 +1,8 @@
 package com.market.coupon.dao;
 
+import java.util.List;
+import java.util.Map;
+
 import org.apache.ibatis.annotations.Param;
 
 import com.market.coupon.model.RedRecordInfo;
@@ -15,6 +18,6 @@ public interface WeUserDao {
    
    void update(@Param("openId") String openId,@Param("lianmengId") int lianmengId,@Param("frontTwo") String frontTwo);
    
-   int statistcs(int lianmengId);
+   List<Map<Integer,Object>> statistcs(@Param("lianmengId")int lianmengId,@Param("shopIds")List<Integer> shopIds);
    
 }

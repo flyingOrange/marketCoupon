@@ -1,12 +1,12 @@
 package com.market.coupon.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 
 import com.market.coupon.model.Order;
 import com.market.coupon.model.OrderRepInfo;
-import com.market.coupon.repschema.StatistcsRep;
 
 public interface OrderDao {
     int add(Order order);
@@ -21,7 +21,7 @@ public interface OrderDao {
     
     List<Order> getByLianmengId(int lianmengId);
     
-    int statistcs(int lianmengId,int shopId);
+    List<Map<Integer,Object>> statistcs(@Param("lianmengId")int lianmengId,@Param("shopIds")List<Integer> shopIds);
     
     
 }

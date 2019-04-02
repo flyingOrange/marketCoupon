@@ -68,10 +68,15 @@
         from `order` where order_buyer_openid=#{openId} and order_lianmeng_id=#{lianmengId}
 	</select>
 	
-	<select id="statistcs" resultType="java.lang.Integer">
-		select count(*)
+	<select id="statistcs" resultType="java.util.HashMap">
+		select order_shopid as shopId,count(*) as totally
 		from `order`
 		where order_lianmeng_id=#{lianmengId}
+		and order_shopid in
+		<foreach collection="shopIds" item="item" open="(" close=")" separator=",">
+			#{item}
+		</foreach>
+		group by order_shopid
 	
 	</select>
 	

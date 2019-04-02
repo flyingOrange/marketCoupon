@@ -80,10 +80,15 @@
 		and lianmengid=#{lianmengId}
 	</update>
 	
-	<select id="statistcs" resultType="java.lang.Integer">
-		select count(*)
+	<select id="statistcs" resultType="java.util.HashMap">
+		select shopid as shopId,count(*) as totally
 		from we_userinfo
 		where lianmengid=#{lianmengId}
+		and shopid in 
+		<foreach collection="shopIds" item="item" open="(" close=")" separator=",">
+			#{item}
+		</foreach>
+		group by shopid
 	</select>
 	
 

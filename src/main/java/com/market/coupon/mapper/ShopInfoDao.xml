@@ -2,7 +2,17 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.market.coupon.dao.ShopInfoDao">
 
-	<select id="selectByLianmengId">
+	<resultMap type="com.market.coupon.model.ShopInfo" id="ShopInfoMap">
+		<result column="shop_id" property="shopId"/>
+		<result column="shop_name" property="shopName"/>
+		<result column="shop_hangye" property="shopHangye"/>
+		<result column="shop_lianmeng_id" property="shopLianmengId"/>
+	
+	</resultMap>
+	
+	<select id="selectByLianmengId" resultMap="ShopInfoMap">
+		select * from shop_info
+		where shop_lianmeng_id=#{lianmengId}
 	</select>
 
 </mapper>
