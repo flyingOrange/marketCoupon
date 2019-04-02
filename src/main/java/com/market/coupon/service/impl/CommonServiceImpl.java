@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import javax.annotation.Resource;
-import javax.swing.JPopupMenu.Separator;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.RandomStringUtils;
@@ -20,6 +19,7 @@ import com.market.coupon.dao.JoinInfoDao;
 import com.market.coupon.dao.LianmengInfoDao;
 import com.market.coupon.dao.OrderDao;
 import com.market.coupon.dao.RedRecordDao;
+import com.market.coupon.dao.ShopInfoDao;
 import com.market.coupon.dao.WeUserDao;
 import com.market.coupon.model.JoinInfo;
 import com.market.coupon.model.LianmengInfo;
@@ -48,6 +48,8 @@ public class CommonServiceImpl implements CommonService{
     private LianmengInfoDao lianmengInfoDao;
     @Resource
     private RedRecordDao redRecordDao;
+    @Resource
+    private ShopInfoDao shopInfoDao;
     
     
 	@Override
@@ -264,11 +266,15 @@ public class CommonServiceImpl implements CommonService{
 
 	@Override
 	public StatistcsRep statistcs(int lianmengId) {
+		//从shop_info中查询中此联盟中的所有shiop
+		
+		
 		StatistcsRep rep = new StatistcsRep();
 		int orderCount = orderDao.statistcs(lianmengId);
 		int pushCount = weUserDao.statistcs(lianmengId);
 		
-		return null;
+		
+		return rep;
 	}
 
 
