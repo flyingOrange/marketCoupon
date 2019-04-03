@@ -268,7 +268,6 @@ public class CommonServiceImpl implements CommonService {
         return false;
     }
 
-    @SuppressWarnings("unlikely-arg-type")
     @Override
     public StatistcsRep statistcs(int lianmengId) {
         StatistcsRep rep = new StatistcsRep();
