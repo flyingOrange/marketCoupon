@@ -72,6 +72,7 @@
 		select order_shopid as shopId,count(*) as totally
 		from `order`
 		where order_lianmeng_id=#{lianmengId}
+		and order_pay_state="payok"
 		and order_shopid in
 		<foreach collection="shopIds" item="item" open="(" close=")" separator=",">
 			#{item}
