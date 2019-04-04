@@ -55,6 +55,7 @@
 		select * 
 		from `order`
 		where order_lianmeng_id=#{lianmengId}
+		and order_pay_state="payok"
 	</select>
 
 	<select id="selectOrderById" parameterType="int" resultMap="OrderMapByOrderId">
